@@ -1,16 +1,16 @@
 import { eq } from "drizzle-orm";
-import { users } from "~/db/schema";
+import { user } from "~/db/schema";
 import { db } from "~/server/sqlite-service";
 
 
 export default defineEventHandler(async (event) => {
     try {
       const userId = event.context.params?.id as string;
-      const usersResp = db
-        .delete(users)
-        .where(eq(users.id, parseInt(userId)))
+      const userResp = db
+        .delete(user)
+        .where(eq(user.id, parseInt(userId)))
         .run();
-      return { user: usersResp };
+      return { user: userResp };
     } catch (e: any) {
       throw createError({
         statusCode: 400,

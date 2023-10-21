@@ -1,4 +1,4 @@
-import { users } from "@/db/schema";
+import { user } from "@/db/schema";
 import { db } from "@/server/sqlite-service";
 import * as bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
@@ -6,18 +6,18 @@ import { eq } from "drizzle-orm";
 export default defineEventHandler(async (event) => {
   try {
     const { username, password } = await readBody(event);
-    const usersResp = db
+    const userResp = db
       .select()
-      .from(users)
-      .where(eq(users.username, username))
+      .from(user)
+      .where(eq(user.username, username))
       .get();
 
-    if (!usersResp) throw new Error("User Not Found");
-    if (!bcrypt.compareSync(password, usersResp.password as string)) {
+    if (!userResp) throw new Error("User Not Found");
+    if (!bcrypt.compareSync(password, userResp.password as string)) {
       throw new Error("Invalid Credentials ");
     }
 
-    const authUser = usersResp;
+    const authUser = userResp;
     authUser["password"] = null;
 
     return authUser;

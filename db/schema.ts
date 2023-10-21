@@ -1,12 +1,35 @@
 import { sql } from "drizzle-orm";
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { integer, real, sqliteTable, sqliteView, text } from "drizzle-orm/sqlite-core";
 
-export const users = sqliteTable("users", {
+export const user = sqliteTable("users", {
   id: integer("id").primaryKey(),
-  firstName: text("first_name"),
-  lastName: text("last_name"),
-  age: integer("age"),
-  username : text("username"),
+  email: text('email').unique('email'),
+  username : text("username").unique('username'),
   password : text("password"),
   createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
+});
+
+export const userView = sqliteView("user_view").as((qb) => qb.select().from(user))
+
+export const setting = sqliteTable("settings", {
+  id: integer("id").primaryKey(),
+  userId: integer("user_id").references(() => user.id).unique('user_id'),
+  scale: text('scale').default('kg'),
+  height: real('height'),
+  sex: text('sex').default('M')
+});
+
+export const record = sqliteTable("records", {
+  id: integer("id").primaryKey(),
+  userId: integer("user_id").references(() => user.id),
+  weight: real('weight'),
+  fat: real('fat'),
+  muscle: real('muscle'),
+  bodyWater: real('body_water'),
+  bodyAge: integer('body_age'),
+  bmr: integer('bmr'),
+  bmi: real('bmi'),
+  visceralFat: integer('visceral_fat'),
+  createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text("updated_at").default(sql`CURRENT_TIMESTAMP`),
 });

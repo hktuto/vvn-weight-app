@@ -1,4 +1,4 @@
-import { users } from "@/db/schema";
+import { user } from "@/db/schema";
 import { db } from "@/server/sqlite-service";
 
 export default defineEventHandler(async (event) => {
@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     const newUser = {
       ...body
     }
-    const result = db.insert(users).values(newUser).run();
+    const result = db.insert(user).values(newUser).run();
     return { newUser : result}
   } catch (e: any) {
     throw createError({

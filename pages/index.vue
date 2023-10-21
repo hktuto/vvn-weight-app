@@ -1,4 +1,7 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: "fullscreen",
+})
 const { data, status, signOut } = useAuth();
 
 const { data: users } = useFetch("/api/users");

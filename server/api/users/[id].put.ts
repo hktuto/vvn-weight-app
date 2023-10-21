@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm";
-import { users } from "~/db/schema";
+import { user } from "~/db/schema";
 import { db } from "~/server/sqlite-service";
 
 
@@ -10,12 +10,12 @@ export default defineEventHandler(async (event) => {
       const editUser = {
         ...body
       }
-      const usersResp = db
-        .update(users)
+      const userResp = db
+        .update(user)
         .set(editUser)
-        .where(eq(users.id, parseInt(userId)))
+        .where(eq(user.id, parseInt(userId)))
         .run();
-      return { user: usersResp };
+      return { user: userResp };
     } catch (e: any) {
       throw createError({
         statusCode: 400,

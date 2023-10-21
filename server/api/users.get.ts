@@ -1,4 +1,4 @@
-import { users } from "../../db/schema";
+import { user } from "../../db/schema";
 import { db } from "../sqlite-service";
 import { getServerSession } from '#auth'
 
@@ -8,8 +8,8 @@ export default defineEventHandler(async (event) => {
     if (!session) {
       return { status: 'unauthenticated!' }
     }
-    const usersResp = db.select().from(users).all();
-    return { "users" : usersResp}
+    const userResp = db.select().from(user).all();
+    return { "user" : userResp}
   } catch (e: any) {
     throw createError({
       statusCode: 400,

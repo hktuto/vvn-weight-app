@@ -1,19 +1,31 @@
 <script setup lang="ts">
+import type { FormError } from "@nuxt/ui/dist/runtime/types/form";
   definePageMeta({
     auth: {
       unauthenticatedOnly: true,
       navigateAuthenticatedTo: "/",
     },
+    layout:'fullscreen'
   });
   import { ref } from "vue";
   const router = useRouter();
   const { signIn } = useAuth();
-  
-  const username = ref("");
-  const age = ref(0);
-  const password = ref("");
-  const firstName = ref("");
-  const lastName = ref("");
+
+  const state = ref({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  })
+
+  const validate = (state: any): FormError[] => {
+    const errors = []
+    if (!state.username) errors.push({ path: 'username', message: 'Required' })
+    if (!state.email) errors.push({ path: 'email', message: 'Required' })
+    if (!state.password) errors.push({ path: 'password', message: 'Required' })
+    if(state.password !== state.confirmPassword) errors.push({ path: 'confirmPassword', message: 'Passwords do not match' })
+    return errors
+  }
   
   const register = async () => {
     try {
@@ -26,11 +38,9 @@
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: username.value,
-          password: password.value,
-          firstName: firstName.value,
-          lastName: lastName.value,
-          age: age.value,
+          username: state.value.username,
+          password: state.value.password,
+          email: state.value.email,
         }),
       };
   
@@ -40,8 +50,8 @@
       const user = await resp.json();
   
       const signResp = await signIn("credentials", {
-        username: username.value,
-        password: password.value,
+        username: state.value.username,
+        password: state.value.password,
         redirect: false,
         callbackUrl: "/",
       });
@@ -53,43 +63,67 @@
       alert((e as any).message);
     } finally {
       // Reset form fields
-      username.value = "";
-      age.value = 0;
-      password.value = "";
-      firstName.value = "";
-      lastName.value = "";
+      state.value.username = "";
+      state.value.password = "";
+      state.value.email = "";
+      state.value.confirmPassword = "";
+      
     }
   };
   </script>
 
 
 <template>
-    <button @click="router.back()">BACK</button>
-    <form @submit.prevent="register" class="form-container">
-      <div class="form-group">
-        <label for="username">Username:</label>
-        <input v-model="username" type="text" id="username" />
+  <UCard class="min-w-[280px] max-w-full">
+    <template #header>
+      <span class="text-xl">
+        Register
+      </span>
+    </template>
+    <Form
+      :validate="validate"
+      :state="state"
+      @submit="register"
+    >
+      <UFormGroup label="Username" name="username">
+        <UInput
+          v-model="state.username"
+          label="Username"
+          placeholder="Enter your username"
+        />
+      </UFormGroup>
+      <UFormGroup label="Email" name="email">
+        <UInput
+          v-model="state.email"
+          label="Email"
+          placeholder="Enter your email"
+        />
+        </UFormGroup>
+      <UFormGroup label="Password" name="password">
+        <UInput
+          v-model="state.password"
+          label="Password"
+          placeholder="Enter your password"
+          type="password"
+        />
+      </UFormGroup>
+      <UFormGroup label="Confirm Password" name="confirmPassword">
+        <UInput
+          v-model="state.confirmPassword"
+          label="Confirm Password"
+          placeholder="Confirm your password"
+          type="password"
+        />
+      </UFormGroup>
+      <UButton type="submit">Register</UButton>
+    </Form>
+    <template #footer>
+      <div class="flex justify-center  text-xs">
+        <NuxtLink href="/login">Already have an account? Login</NuxtLink>
       </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input v-model="password" type="password" id="password" />
-      </div>
-      <div class="form-group">
-        <label for="firstName">First Name:</label>
-        <input v-model="firstName" type="text" id="firstName" />
-      </div>
-      <div class="form-group">
-        <label for="lastName">Last Name:</label>
-        <input v-model="lastName" type="text" id="lastName" />
-      </div>
-      <div class="form-group">
-        <label for="age">Age:</label>
-        <input v-model="age" type="number" id="age" />
-      </div>
-      <div class="form-group">
-        <button type="submit">Register</button>
-      </div>
-    </form>
+    </template>
+  </UCard>
+    
   </template>
   
   
