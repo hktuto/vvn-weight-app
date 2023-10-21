@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@sidebase/nuxt-auth', '@nuxt/ui', '@nuxtjs/color-mode'],
   auth : {
-    origin: process.env.HOST_URL || 'http://localhost:3000',
+    origin: process.env.AUTH_ORIGIN || 'http://localhost:3000',
     globalAppMiddleware: true
   },
   

@@ -43,7 +43,7 @@ export default NuxtAuthHandler({
         },
       },
       async authorize(credentials: any) {
-        let url = process.env.HOST_URL + "/api/login";
+        let url = process.env.AUTH_ORIGIN + "/api/login";
         
         let options = {
           method: "POST",
