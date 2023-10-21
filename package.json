@@ -7,9 +7,9 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "migrate": "pnpm exec drizzle-kit generate:sqlite --out migrations --schema db/schema.ts && pnpm exec drizzle-kit push:sqlite",
-    "studio": "pnpm exec drizzle-kit studio"
+    "postinstall": "nuxt prepare && npm run migrate",
+    "migrate": "npm exec drizzle-kit generate:sqlite --out migrations --schema db/schema.ts && npm exec drizzle-kit push:sqlite",
+    "studio": "npm exec drizzle-kit studio"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
