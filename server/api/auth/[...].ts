@@ -60,7 +60,7 @@ export default NuxtAuthHandler({
         if (!resp.ok) return null;
 
         const user = await resp.json();
-
+        
         return user;
       },
     }),

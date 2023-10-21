@@ -56,8 +56,11 @@ import type { FormError } from "@nuxt/ui/dist/runtime/types/form";
         callbackUrl: "/",
       });
       if ((signResp as any).error) throw (signResp as any).error;
-  
-      return navigateTo((signResp as any).url, { external: true })
+      
+      // TODO: show notification
+      router.push({
+        path:'/setting'
+      });
   
     } catch (e) {
       alert((e as any).message);

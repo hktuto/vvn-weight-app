@@ -1,12 +1,11 @@
 import { eq } from 'drizzle-orm';
 import * as bcrypt from "bcrypt";
-import { user } from "@/db/schema";
+import { setting, user } from "@/db/schema";
 import { db } from "@/server/sqlite-service";
 
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event);
-    console.log(body );
     // check username is exist
     const existUser = await db.select().from(user).where(eq(user.username, body.username));
     if(existUser && existUser.length > 0) {
@@ -22,6 +21,15 @@ export default defineEventHandler(async (event) => {
       password : hashedPassword
     }
     const result = db.insert(user).values(newUser).run();
+
+    // get user id
+    const userData = await db.select().from(user).where(eq(user.username, body.username));
+    
+    // create setting
+    const settingData = {
+      userId : userData[0].id,
+    }
+    db.insert(setting).values(settingData).run();
     return { newUser : result}
   } catch (e: any) {
     throw createError({

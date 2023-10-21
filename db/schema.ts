@@ -9,15 +9,17 @@ export const user = sqliteTable("users", {
   createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
 });
 
-export const userView = sqliteView("user_view").as((qb) => qb.select().from(user))
 
 export const setting = sqliteTable("settings", {
   id: integer("id").primaryKey(),
   userId: integer("user_id").references(() => user.id).unique('user_id'),
-  scale: text('scale').default('kg'),
+  scale: text('scale').default('KG'),
   height: real('height'),
-  sex: text('sex').default('M')
+  sex: text('sex').default('M'),
+  birthday: text('birthday'),
 });
+
+export const settingView = sqliteView("setting_view").as((qb) => qb.select().from(setting))
 
 export const record = sqliteTable("records", {
   id: integer("id").primaryKey(),
