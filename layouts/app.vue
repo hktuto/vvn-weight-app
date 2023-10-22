@@ -4,12 +4,7 @@
 
 <template>
 <div class="pageContainer">
-    <UiHeader>
-        header
-        <template #right>
-            <UIcon name="i-heroicons-cog-8-tooth" class="w-10 h-10" @click="$router.push('/setting')" />
-        </template>
-    </UiHeader>
+
     <slot />
     <UiMenu />
 </div>
@@ -20,9 +15,9 @@
 .pageContainer{
     width:100%;
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
     display : grid;
-    grid-template-rows: min-content 1fr min-content;
+    grid-template-rows: 1fr;
 
 }
 </style>

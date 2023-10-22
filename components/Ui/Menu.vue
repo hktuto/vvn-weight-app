@@ -17,6 +17,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    isolation: isolate;
+    &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 4rem;
+        z-index: -1;
+        background-image: linear-gradient(to top, rgb(var(--color-gray-500) / 1), rgb(var(--color-gray-500) / 0));
+    
+    }
 }
 .item{
     cursor: pointer;
