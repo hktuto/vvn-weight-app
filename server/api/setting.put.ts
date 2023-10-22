@@ -11,7 +11,6 @@ export default defineEventHandler(async (event) => {
         birthday: new Date(body.birthday),
       }
       delete newSetting.id;
-      console.log(newSetting, parseInt(userId))
       const settingResp = db
         .update(setting)
         .set(newSetting)

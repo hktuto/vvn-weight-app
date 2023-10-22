@@ -13,6 +13,18 @@ const displayDate = computed({
     }
 })
 
+function toggleOpened() {
+    opened.value = !opened.value;
+    if(opened.value) {
+        record.value.date = new Date(); // if opened set record date to today
+    }
+}
+
+async function submit() {
+    await createNewRecord();
+    toggleOpened();
+}
+
 onMounted(() => {
     getLatestDate();
 })
@@ -21,35 +33,35 @@ onMounted(() => {
 
 <template>
     <div :class="{recordCreateContainer:true, opened}">
-        <div class="recordCreateButton w-10 h-10" @click="opened = !opened">
+        <div class="recordCreateButton w-10 h-10" @click="toggleOpened">
             <UIcon class="w-8 h-8" :name="!opened ? 'i-heroicons-plus' : 'i-heroicons-arrow-down'" />
         </div>
         <UContainer class="w-full formContainer">
 
             <UCard class="w-full h-full overflow-auto">
-                <Form :state="record" :validate="validate" @submit="createNewRecord" >
+                <Form :state="record" :validate="validate" @submit="submit" >
                     <UFormGroup label="Date" name="date">
-                        <UInput v-model="record.date" label="Weight" type="date" />
+                        <UInput v-model="displayDate" label="Weight" type="date" />
                     </UFormGroup>
                     <UFormGroup label="Weight" name="weight">
-                        <UInput v-model="record.weight" label="Weight" placeholder="Enter your weight" type="number" />
+                        <UInput v-model="record.weight" label="Weight" placeholder="Enter your weight" type="number" step="0.1" />
                     </UFormGroup>
                     <UFormGroup label="Fat" name="fat">
-                        <UInput v-model="record.fat" label="Weight" placeholder="Enter your weight" type="number" />
+                        <UInput v-model="record.fat" label="Weight" placeholder="Enter your weight" type="number" step="0.1" />
                     </UFormGroup>
                     <UFormGroup label="Muscle" name="muscle">
-                        <UInput v-model="record.muscle" label="Weight" placeholder="Enter your weight" type="number" />
+                        <UInput v-model="record.muscle" label="Weight" placeholder="Enter your weight" type="number" step="0.1" />
                     </UFormGroup>
                     <UFormGroup label="Body Water" name="bodyWater">
-                        <UInput v-model="record.bodyWater" label="Weight" placeholder="Enter your weight" type="number" />
+                        <UInput v-model="record.bodyWater" label="Weight" placeholder="Enter your weight" type="number" step="0.1" />
                     </UFormGroup>
                     <UFormGroup label="Body Age" name="bodyAge">
-                        <UInput v-model="record.bodyAge" label="Weight" placeholder="Enter your weight" type="number" />
+                        <UInput v-model="record.bodyAge" label="Weight" placeholder="Enter your weight" type="number" step="0.1" />
                     </UFormGroup>
                     <UFormGroup label="Visceral Fat" name="visceralFat">
-                        <UInput v-model="record.visceralFat" label="Weight" placeholder="Enter your weight" type="number" />
+                        <UInput v-model="record.visceralFat" label="Weight" placeholder="Enter your weight" type="number" step="0.1" />
                     </UFormGroup>
-                    <UButton class="w-full">Confirm</UButton>
+                    <UButton type="submit" class="w-full">Confirm</UButton>
                 </Form>
             </UCard>
         </UContainer>

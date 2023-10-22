@@ -1,0 +1,7 @@
+html {
+    --menu-gradient: linear-gradient(to top, rgb(var(--color-gray-100) / 0.6), rgb(var(--color-gray-100) / 0));
+}
+
+html.dark {
+    --menu-gradient: linear-gradient(to top, rgb(var(--color-gray-900) / 0.8), rgb(var(--color-gray-900) / 0));
+}

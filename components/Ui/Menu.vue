@@ -1,5 +1,5 @@
 <template>
-    <div class="menuContainer px-4">
+    <div class="menuContainer px-4 py-2">
         <div class="item" @click="$router.push('/')">Home</div>
         <RecordCreate />
         <div class="item" @click="$router.push('/setting')">Setting</div>
@@ -24,10 +24,9 @@
         left: 0;
         bottom: 0;
         width: 100%;
-        height: 4rem;
+        height: 10rem;
         z-index: -1;
-        background-image: linear-gradient(to top, rgb(var(--color-gray-500) / 1), rgb(var(--color-gray-500) / 0));
-    
+        background-image: var(--menu-gradient);
     }
 }
 .item{
