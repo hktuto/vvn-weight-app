@@ -8,7 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare && npm run migrate",
-    "migrate": "npm exec drizzle-kit generate:sqlite --out migrations --schema db/schema.ts && npm exec drizzle-kit push:sqlite",
+    "migrate": "npm exec drizzle-kit generate:sqlite --schema db/schema.ts && npm exec drizzle-kit push:sqlite",
     "studio": "npm exec drizzle-kit studio"
   },
   "devDependencies": {
@@ -21,6 +21,7 @@
     "drizzle-kit": "^0.19.13",
     "next-auth": "4.21.1",
     "nuxt": "^3.8.0",
+    "sass": "^1.69.4",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"
   },

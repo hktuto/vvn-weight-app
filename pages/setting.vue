@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 definePageMeta({
-    layout:'fullscreen'
+    layout:'app'
 })
 const { getSetting, settingData, validate, saveSetting, sexOptions, scaleOptions } = useSetting();
-const { data } = useAuth();
+const { data, signOut } = useAuth();
 
 onMounted( async() => {
     if(data.value && data.value.user && data.value.user.id) {
@@ -14,6 +14,7 @@ onMounted( async() => {
 
 
 <template>
+    <UContainer>
     <UCard>
         <template #header>
             <h1 class="text-2xl font-bold">Setting</h1>
@@ -34,4 +35,6 @@ onMounted( async() => {
             <UButton type="submit" color="primary">Save</UButton>
         </Form>
     </UCard>
+    <UButton @click="signOut">Sign Out</UButton>
+</UContainer>
 </template>
