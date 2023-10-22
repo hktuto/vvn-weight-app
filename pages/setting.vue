@@ -24,8 +24,7 @@ onMounted( async() => {
 
 
 <template>
-    <UContainer>
-    <UCard>
+    <UCard class="max-w-4xl w-[90%]">
         <template #header>
             <h1 class="text-2xl font-bold">Setting</h1>
         </template>
@@ -46,5 +45,4 @@ onMounted( async() => {
         </Form>
     </UCard>
     <UButton @click="signOut">Sign Out</UButton>
-</UContainer>
 </template>

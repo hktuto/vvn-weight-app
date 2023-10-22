@@ -1,6 +1,8 @@
 <template>
-    <div class="menuContainer p-2">
+    <div class="menuContainer px-4">
+        <div class="item" @click="$router.push('/')">Home</div>
         <RecordCreate />
+        <div class="item" @click="$router.push('/setting')">Setting</div>
     </div>
 </template>
 
@@ -13,7 +15,11 @@
     min-height: 3rem;
     overflow: visible;
     display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    justify-content: space-between;
+    align-items: center;
+}
+.item{
+    cursor: pointer;
+    
 }
 </style>

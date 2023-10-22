@@ -1,6 +1,7 @@
 export const useRecord = () => {
     const { data } = useAuth()
     const record = useState("userRecord", () =>({
+        date: new Date(),
         weight: 0,
         fat: 0,
         muscle : 0,

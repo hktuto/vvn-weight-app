@@ -1,5 +1,5 @@
 <template>
-    <div class="headerContainer px-2">
+    <div class="headerContainer p-2">
         <div class="leftSection">
             <slot name="left" />
         </div>
@@ -17,5 +17,7 @@
     width: 100%;
     display: grid;
     grid-template-columns: min-content 1fr min-content;
+    justify-content: flex-start;
+    align-items: center;
 }
 </style>

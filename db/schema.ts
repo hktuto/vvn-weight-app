@@ -32,6 +32,7 @@ export const record = sqliteTable("records", {
   bmr: integer('bmr'),
   bmi: real('bmi'),
   visceralFat: integer('visceral_fat'),
+  date: integer('date', { mode: 'timestamp' }).$default(() => new Date()),
   createdAt: integer('createdAt', { mode: 'timestamp' }).$default(() => new Date()),
   updatedAt: integer('updatedAt', { mode: 'timestamp' }).$default(() => new Date()),
 });

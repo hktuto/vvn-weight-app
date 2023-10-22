@@ -39,8 +39,7 @@ definePageMeta({
 </script>
 
 <template>
-  
-  <UCard class="min-w-[280px] max-w-full">
+  <UCard class=" max-w-4xl w-[90%]">
     <template #header>
       <span class="text-xl">
         Login
@@ -76,6 +75,5 @@ definePageMeta({
 
         </template>
   </UCard>
-    
 
 </template>
