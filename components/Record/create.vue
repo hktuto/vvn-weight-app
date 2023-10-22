@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const opened = ref(false);
 
-const { data, validate, createNewRecord, getLatestDate } = useRecord(); 
+const { record, validate, createNewRecord, getLatestDate } = useRecord(); 
 
 onMounted(() => {
     getLatestDate();
@@ -17,7 +17,7 @@ onMounted(() => {
         <UContainer class="w-full">
 
             <UCard class="w-full">
-                <Form :state="data" :validate="validate" @submit="createNewRecord" />
+                <Form :state="record" :validate="validate" @submit="createNewRecord" />
                 card content here
                 <UButton class="w-full">Confirm</UButton>
             </UCard>

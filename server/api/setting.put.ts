@@ -7,7 +7,8 @@ export default defineEventHandler(async (event) => {
       const body = await readBody(event);
       const userId = body.id as string;
       const newSetting = {
-        ...body
+        ...body,
+        birthday: new Date(body.birthday),
       }
       delete newSetting.id;
       console.log(newSetting, parseInt(userId))

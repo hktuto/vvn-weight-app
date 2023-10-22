@@ -5,6 +5,16 @@ definePageMeta({
 const { getSetting, settingData, validate, saveSetting, sexOptions, scaleOptions } = useSetting();
 const { data, signOut } = useAuth();
 
+// for input type date to display iso string, need to convert to yyyy/mm/dd
+const displayBirthday = computed({
+    get(){
+       return settingData.value.birthday ? new Date(settingData.value.birthday).toISOString().split('T')[0] : ''; 
+    },
+    set(value){
+        settingData.value.birthday = new Date(value).toISOString();
+    }
+})
+
 onMounted( async() => {
     if(data.value && data.value.user && data.value.user.id) {
         await getSetting(data.value.user.id);
@@ -21,7 +31,7 @@ onMounted( async() => {
         </template>
         <Form :state="settingData" :validate="validate" @submit="saveSetting">
             <UFormGroup label="Birthday" name="birthday">
-                <UInput v-model="settingData.birthday" placeholder="Enter your height" type="date" />
+                <UInput v-model="displayBirthday" placeholder="Enter your height" type="date" />
             </UFormGroup>
             <UFormGroup label="Sex" name="sex">
                 <USelect v-model="settingData.sex" :options="sexOptions" option-attribute="name" />

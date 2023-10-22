@@ -1,6 +1,6 @@
 export const useRecord = () => {
-
-    const data = useState("userRecord", () =>({
+    const { data } = useAuth()
+    const record = useState("userRecord", () =>({
         weight: 0,
         fat: 0,
         muscle : 0,
@@ -16,7 +16,9 @@ export const useRecord = () => {
     }
 
     async function getLatestDate(){
-        
+        const lastRecord = $fetch('/api/record/latest/' + data.value?.user.id as string,  {
+            method: 'GET',
+        } )
     }
 
     async function createNewRecord(){
@@ -26,7 +28,7 @@ export const useRecord = () => {
 
 
     return {
-        data,
+        record,
         validate,
         createNewRecord,
         getLatestDate

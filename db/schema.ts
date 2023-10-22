@@ -6,7 +6,7 @@ export const user = sqliteTable("users", {
   email: text('email').unique('email'),
   username : text("username").unique('username'),
   password : text("password"),
-  createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
+  createdAt: integer('createdAt', { mode: 'timestamp' }).$default(() => new Date()),
 });
 
 
@@ -16,7 +16,7 @@ export const setting = sqliteTable("settings", {
   scale: text('scale').default('KG'),
   height: real('height'),
   sex: text('sex').default('M'),
-  birthday: text('birthday'),
+  birthday: integer('birthday', { mode: 'timestamp' }).$default(() => new Date()),
 });
 
 export const settingView = sqliteView("setting_view").as((qb) => qb.select().from(setting))
@@ -32,6 +32,6 @@ export const record = sqliteTable("records", {
   bmr: integer('bmr'),
   bmi: real('bmi'),
   visceralFat: integer('visceral_fat'),
-  createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: text("updated_at").default(sql`CURRENT_TIMESTAMP`),
+  createdAt: integer('createdAt', { mode: 'timestamp' }).$default(() => new Date()),
+  updatedAt: integer('updatedAt', { mode: 'timestamp' }).$default(() => new Date()),
 });

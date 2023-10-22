@@ -48,7 +48,6 @@ export const useSetting = () => {
             ...settingData.value,
             height: Number(settingData.value.height),
         }
-        console.log(body)
         const res = await $fetch("/api/setting", {
             method:'PUT',
             headers: {
