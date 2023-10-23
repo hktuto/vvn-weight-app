@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 const props = defineProps<{
     state: any,
-    schema: any,
     validate: any,
 }>()
 </script>
