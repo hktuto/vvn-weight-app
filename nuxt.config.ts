@@ -8,5 +8,5 @@ export default defineNuxtConfig({
     origin: process.env.AUTH_ORIGIN || 'http://localhost:3000',
     globalAppMiddleware: true
   },
-  
+  devServer: {}
 })

@@ -43,6 +43,7 @@ export default NuxtAuthHandler({
         },
       },
       async authorize(credentials: any) {
+        
         let url = process.env.AUTH_ORIGIN + "/api/login";
         
         let options = {
@@ -56,12 +57,19 @@ export default NuxtAuthHandler({
             password: credentials.password,
           }),
         };
-        const resp = await fetch(url, options);
-        if (!resp.ok) return null;
-
-        const user = await resp.json();
-        
-        return user;
+        try{
+          console.log("try to login", { url, options });
+          const resp = await fetch(url, options);
+          console.log(resp)
+          if (!resp.ok) return null;
+          
+          const user = await resp.json();
+          
+          return user;
+        } catch(e) {
+          console.log(e);
+          throw new Error("Invalid Credentials");
+        }
       },
     }),
   ],

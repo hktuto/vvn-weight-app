@@ -27,14 +27,22 @@ definePageMeta({
 
   async function submit () {
     console.log("submitting")
-    const signResp = await signIn("credentials", {
+    try{
+
+      const signResp = await signIn("credentials", {
         username: state.value.username,
         password: state.value.password,
-        redirect: true,
+        redirect: false,
         callbackUrl: "/",
       });
       if ((signResp as any).error) throw (signResp as any).error;
       navigateTo((signResp as any).url, { external: true })
+    } catch(e) {
+      console.log(e)
+      // reset form
+      state.value.username = ""
+      state.value.password = ""
+    }
   }
 </script>
 

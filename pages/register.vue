@@ -48,7 +48,8 @@ import type { FormError } from "@nuxt/ui/dist/runtime/types/form";
       if (!resp.ok) throw new Error(resp.statusText);
   
       const user = await resp.json();
-  
+      console.log("register finish");
+      console.log('try oto login now');
       const signResp = await signIn("credentials", {
         username: state.value.username,
         password: state.value.password,
