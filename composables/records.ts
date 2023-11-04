@@ -1,7 +1,18 @@
 import dayjs from 'dayjs'
+import isToday from "dayjs/plugin/isToday";
+dayjs.extend(isToday);
 export const useRecord = () => {
     const { data } = useAuth()
-    const record = useState("userRecord", () =>({
+    const record = useState<{
+        id?: number
+        date: Date
+        weight: number,
+        fat: number,
+        muscle : number,
+        bodyWater: number,
+        bodyAge: number,
+        visceralFat : number
+    }>("userRecord", () =>({
         date: new Date(),
         weight: 0,
         fat: 0,
@@ -24,7 +35,6 @@ export const useRecord = () => {
         } );
         if(lastRecord){
             // if lastRecord.date === today
-            
             record.value = {
                 date: new Date(),
                 weight: lastRecord.weight,
@@ -34,7 +44,7 @@ export const useRecord = () => {
                 bodyAge: lastRecord.bodyAge,
                 visceralFat : lastRecord.visceralFat
             }
-            if(dayjs(lastRecord.date).diff(dayjs(),'day') === 0){
+            if(dayjs(lastRecord.date).isToday()){
                 record.value.date = new Date(lastRecord.date);
                 record.value.id = lastRecord.id
             }

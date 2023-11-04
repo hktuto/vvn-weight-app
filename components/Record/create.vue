@@ -33,7 +33,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div :class="{recordCreateContainer:true, opened}">
+    <div :class="{recordCreateContainer:true, opened}" style="--card-height: 650px">
         <div class="recordCreateButton w-10 h-10" @click="toggleOpened">
             <UIcon class="w-8 h-8" :name="!opened ? 'i-heroicons-plus' : 'i-heroicons-arrow-down'" />
         </div>
@@ -42,7 +42,7 @@ onMounted(() => {
             <UCard class="w-full h-full overflow-auto">
                 <Form :state="record" :validate="validate" @submit="submit" >
                     <UFormGroup label="Date" name="date">
-                        <UInput v-model="displayDate" label="Weight" type="date" />
+                        <UInput v-model="displayDate" label="Weight" type="date" disabled/>
                     </UFormGroup>
                     <UFormGroup label="Weight" name="weight">
                         <UInput v-model="record.weight" label="Weight" placeholder="Enter your weight" type="number" step="0.1" />
@@ -84,7 +84,7 @@ onMounted(() => {
         opacity: 0;
     }
     &.opened{
-        transform: translateY(-400px);
+        transform: translateY( calc(var(--card-height) * -1));
         gap: 0;
         .formContainer{
             opacity: 1;
@@ -102,9 +102,10 @@ onMounted(() => {
 }
 
 .formContainer{
+    
     position:absolute;
     top: 2rem;
     width: 100vw;
-    height: 400px;
+    height: var(--card-height);
 }
 </style>
