@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 export const useRecord = () => {
     const { data } = useAuth()
     const record = useState("userRecord", () =>({
@@ -22,6 +23,8 @@ export const useRecord = () => {
             method: 'GET',
         } );
         if(lastRecord){
+            // if lastRecord.date === today
+            
             record.value = {
                 date: new Date(),
                 weight: lastRecord.weight,
@@ -31,6 +34,20 @@ export const useRecord = () => {
                 bodyAge: lastRecord.bodyAge,
                 visceralFat : lastRecord.visceralFat
             }
+            if(dayjs(lastRecord.date).diff(dayjs(),'day') === 0){
+                record.value.date = new Date(lastRecord.date);
+                record.value.id = lastRecord.id
+            }
+        }else{
+            record.value = {
+                date: new Date(),
+                weight: 0,
+                fat: 0,
+                muscle : 0,
+                bodyWater: 0,
+                bodyAge: 0,
+                visceralFat : 0
+            }
         }
     }
 
@@ -39,7 +56,6 @@ export const useRecord = () => {
             method: 'POST',
             body: record.value
         });
-        console.log(newRecord)
         await getLatestDate();
     }
 

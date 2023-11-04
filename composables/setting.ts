@@ -55,7 +55,6 @@ export const useSetting = () => {
             },
             body
         })
-        console.log(res);
         await getSetting(settingData.value.userId);
         // TODO : add notification
     }

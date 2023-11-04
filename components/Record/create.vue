@@ -13,10 +13,11 @@ const displayDate = computed({
     }
 })
 
-function toggleOpened() {
+async function toggleOpened() {
     opened.value = !opened.value;
     if(opened.value) {
-        record.value.date = new Date(); // if opened set record date to today
+        await getLatestDate();
+        // record.value.date = new Date(); // if opened set record date to today
     }
 }
 

@@ -4,15 +4,14 @@ import { record } from "~/db/schema";
 export default defineEventHandler(async (event) => {
     try {
         const userId = event.context.params?.userId as string;
-        const data = await db.query.record.findMany({
+        const data = await db.query.record.findFirst({
             where: (record, { eq }) => (eq(record.userId, parseInt(userId))),
             orderBy: (record, { desc }) => [desc(record.date)],
-            limit: 1,
         });
-        if(!data || data.length === 0) {
+        if(!data) {
             throw new Error("No record found");
         }
-        return data[0];
+        return data;
     } catch(e:any) {
         throw createError({
             statusCode: 400,

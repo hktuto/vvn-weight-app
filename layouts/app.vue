@@ -4,8 +4,9 @@
 
 <template>
 <div class="pageContainer">
-
-    <slot />
+    <div class="content">
+     <slot />
+    </div>
     <UiMenu />
 </div>
 
