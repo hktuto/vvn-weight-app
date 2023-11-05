@@ -32,6 +32,7 @@ export default defineEventHandler(async (event) => {
     db.insert(setting).values(settingData).run();
     return { newUser : result}
   } catch (e: any) {
+    console.log(e);
     throw createError({
       statusCode: 400,
       statusMessage: e.message,
