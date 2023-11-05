@@ -26,5 +26,4 @@ logs
 
 # Drizzle
 drizzle
-*.db
 .vercel
